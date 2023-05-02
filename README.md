@@ -4,6 +4,7 @@ Implement the server part of the application, which consists of three levels:
 - Data access level
 - Level of business logic
 - Presentation level
+
 Communication between layers should be implemented using interfaces (classes of the business logic layer should use interfaces of the data access layer, not implementation) and patterns of inversion of control and implementation of dependencies
 The presentation layer currently does not perform any logic and is represented only by interfaces
 The data access level should be implemented using the ORM framework to populate the database created in laboratory 1.b (class diagram). Also, at the data access level, data reading from a .csv file should be implemented.

@@ -6,9 +6,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("localhost");
 
-builder.Services.AddDbContext<StoryContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<InstagramContext>(options => options.UseNpgsql(connectionString));
+
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IStoryService, StoryService>();
+
+builder.Services.AddAutoMapper(typeof(MapperInitializer));
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

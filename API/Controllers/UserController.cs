@@ -19,10 +19,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<UserDTO>> GetAll()
+    public async Task<IActionResult> GetAll()
     {
         var users = await _userService.GetAll();
-        return _mapper.Map<List<User>, List<UserDTO>>(users);
+        var response = _mapper.Map<List<UserDTO>>(users);
+
+        return Ok(response);
     }
 
     [HttpGet("{id}")]
@@ -32,19 +34,22 @@ public class UserController : ControllerBase
         if (user is null)
             return NotFound();
 
-        return _mapper.Map<UserDTO>(user);
+        var response = _mapper.Map<UserDTO>(user);
+
+        return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(UserDTO userDTO)
+    public async Task<IActionResult> Create(CreateUserDto userDTO)
     {
         var user = _mapper.Map<User>(userDTO);
         await _userService.Create(user);
-        return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+
+        return CreatedAtAction(nameof(Get), new { id = user.Id }, userDTO);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UserDTO updatedUserDTO)
+    public async Task<IActionResult> Update(int id, CreateUserDto updatedUserDTO)
     {
         var pizza = await _userService.Find(id);
         if (pizza is null)

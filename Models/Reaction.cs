@@ -10,10 +10,11 @@ public class Reaction
     public int Id { get; set; }
     [Column(TypeName = "int")]
     public ReactionType Type { get; set; }
-    [ForeignKey("Storyid")]
-    public Story Story { get; set; }
-    [ForeignKey("UserId")]
+    
+    public int? UserId { get; set; }
     public User? User { get; set; }
+    public int StoryId { get; set; }
+    public Story Story { get; set; }
 
     public enum ReactionType
     {

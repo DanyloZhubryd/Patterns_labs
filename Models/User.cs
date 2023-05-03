@@ -8,11 +8,11 @@ public class User
 {
     [Key]
     public int Id { get; set; }
-    [Required, StringLength(50)]
     public string Username { get; set; }
-    public ICollection<Story> StoryCollection { get; set; }
-    public ICollection<Reaction> ReactionCollection { get; set; }
-    public ICollection<Comment> CommentCollection { get; set; }
+    
+    public virtual ICollection<Story> StoryCollection { get; set; }
+    public virtual ICollection<Reaction> ReactionCollection { get; set; }
+    public virtual ICollection<Comment> CommentCollection { get; set; }
 
     internal void update(User updatedUser)
     {

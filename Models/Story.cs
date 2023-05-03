@@ -8,13 +8,13 @@ public class Story
 {
     [Key]
     public int Id { get; set; }
-    [StringLength(150)]
     public string? Caption { get; set; }
+    public string MediaUrl { get; set; }
     public bool IsCloseFriendsOnly { get; set; }
-    [Required, ForeignKey("MediaId")]
-    public Media Media { get; set; }
-    public ICollection<Reaction> ReactionCollection { get; set; }
-    public ICollection<Comment> CommentCollection { get; set; }
-    [Required, ForeignKey("UserId")]
+
+    public int UserId { get; set; }
     public User User { get; set; }
+    
+    public virtual ICollection<Reaction> ReactionCollection { get; set; }
+    public virtual ICollection<Comment> CommentCollection { get; set; }
 }

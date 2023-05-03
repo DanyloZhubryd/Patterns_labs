@@ -7,9 +7,9 @@ namespace Instagram.Services;
 
 public class UserService : IUserService
 {
-    private readonly StoryContext _context;
+    private readonly InstagramContext _context;
 
-    public UserService(StoryContext context)
+    public UserService(InstagramContext context)
     {
         _context = context;
     }

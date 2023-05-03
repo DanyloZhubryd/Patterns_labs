@@ -3,10 +3,9 @@ using Instagram.Models;
 
 namespace Instagram.Data;
 
-public class StoryContext : DbContext
+public class InstagramContext : DbContext
 {
-    private readonly string _connectionString;
-    public StoryContext(DbContextOptions options) : base(options) { }
+    public InstagramContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,7 +26,6 @@ public class StoryContext : DbContext
 
     public DbSet<User> UserCollection { get; set; }
     public DbSet<Story> StoryCollection { get; set; }
-    public DbSet<Media> MediaCollection { get; set; }
     public DbSet<Reaction> ReactionCollection { get; set; }
     public DbSet<Comment> CommentCollection { get; set; }
 }

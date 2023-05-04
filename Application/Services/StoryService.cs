@@ -20,7 +20,9 @@ public class StoryService : IStoryService
 
     public async Task<List<Story>> GetAllByUserId(int userId)
     {
-        return await _context.StoryCollection.Where(x => x.UserId == userId).ToListAsync();
+        return await _context.StoryCollection
+        .Where(x => x.UserId == userId)
+        .ToListAsync();
     }
 
     public async Task Create(Story story)
@@ -31,7 +33,7 @@ public class StoryService : IStoryService
 
     public async Task Delete(Story story)
     {
-        _context.Remove(story);
+        _context.StoryCollection.Remove(story);
         await _context.SaveChangesAsync();
     }
 }

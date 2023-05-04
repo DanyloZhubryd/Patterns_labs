@@ -9,5 +9,5 @@ public interface IReactionService
     Task<List<Reaction>> GetReactionsByStoryId(int storyId);
     Task CreateReaction(Reaction reaction);
     Task UpdateReaction(Reaction currnetReaction, Reaction updatedReaction);
-    Task RemoveReaction(Reaction reaction);
+    Task DeleteReaction(Reaction reaction);
 }

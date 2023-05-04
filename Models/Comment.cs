@@ -15,4 +15,9 @@ public class Comment
     public User? User { get; set; }
     public int StoryId { get; set; }
     public Story Story { get; set; }
+
+    public void update(Comment updatedComment)
+    {
+        this.Text = updatedComment.Text;
+    }
 }

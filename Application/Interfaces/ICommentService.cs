@@ -4,9 +4,9 @@ namespace Instagram.Interfaces;
 
 public interface ICommentService
 {
-    Task<Comment?> FindById(int id);
+    Task<Comment?> FindByIdAndStoryId(int id, int storyId);
     Task<List<Comment>> GetAllByStoryId(int storyId);
     Task Create(Comment comment);
-    Task Update(Comment currentComment, Comment updateComment);
-    Task Remove(Comment comment);
+    Task Update(Comment currentComment, Comment updatedComment);
+    Task Delete(Comment comment);
 }

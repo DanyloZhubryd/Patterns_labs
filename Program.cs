@@ -10,6 +10,7 @@ builder.Services.AddDbContext<InstagramContext>(options => options.UseNpgsql(con
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStoryService, StoryService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 builder.Services.AddControllers();
@@ -19,7 +20,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

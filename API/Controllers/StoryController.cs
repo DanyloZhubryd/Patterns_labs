@@ -21,7 +21,7 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllStories()
     {
         var stories = await _storyService.GetAll();
         var response = _mapper.Map<List<StoryDTO>>(stories);
@@ -30,7 +30,7 @@ public class StoryController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
+    public async Task<IActionResult> GetStoryById(int id)
     {
         var story = await _storyService.FindById(id);
         if (story is null)
@@ -42,7 +42,7 @@ public class StoryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Detele(int id)
+    public async Task<IActionResult> DeteleStory(int id)
     {
         var story = await _storyService.FindById(id);
         if (story is null)
@@ -55,7 +55,7 @@ public class StoryController : ControllerBase
 
     [HttpGet]
     [Route("~/user/{userId}/story")]
-    public async Task<IActionResult> GetAllByUserId(int userId)
+    public async Task<IActionResult> GetAllStoriesByUserId(int userId)
     {
         var user = await _userService.Find(userId);
         if (user is null)
@@ -69,7 +69,7 @@ public class StoryController : ControllerBase
 
     [HttpPost]
     [Route("~/user/{userId}/story")]
-    public async Task<IActionResult> Create(int userId, CreateStoryDTO storyDTO)
+    public async Task<IActionResult> CreateStory(int userId, CreateStoryDTO storyDTO)
     {
         if (storyDTO.UserId != userId)
             return BadRequest();
@@ -81,6 +81,6 @@ public class StoryController : ControllerBase
         var story = _mapper.Map<Story>(storyDTO);
         await _storyService.Create(story);
 
-        return CreatedAtAction(nameof(Get), new { userId = user.Id, id = story.Id }, storyDTO);
+        return CreatedAtAction(nameof(GetStoryById), new { userId = user.Id, id = story.Id }, storyDTO);
     }
 }

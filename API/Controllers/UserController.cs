@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllUsers()
     {
         var users = await _userService.GetAll();
         var response = _mapper.Map<List<UserDTO>>(users);
@@ -28,7 +28,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<UserDTO>> Get(int id)
+    public async Task<IActionResult> GetUserById(int id)
     {
         var user = await _userService.Find(id);
         if (user is null)
@@ -40,16 +40,16 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateUserDto userDTO)
+    public async Task<IActionResult> CreateUser(CreateUserDto userDTO)
     {
         var user = _mapper.Map<User>(userDTO);
         await _userService.Create(user);
 
-        return CreatedAtAction(nameof(Get), new { id = user.Id }, userDTO);
+        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, userDTO);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, CreateUserDto updatedUserDTO)
+    public async Task<IActionResult> UpdateUser(int id, CreateUserDto updatedUserDTO)
     {
         var pizza = await _userService.Find(id);
         if (pizza is null)
@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> DeleteUser(int id)
     {
         var pizza = await _userService.Find(id);
         if (pizza is null)

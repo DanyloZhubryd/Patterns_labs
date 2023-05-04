@@ -14,5 +14,8 @@ public class MapperInitializer : Profile
 
         CreateMap<Comment, CommentDTO>().ReverseMap();
         CreateMap<Comment, CreateCommentDTO>().ReverseMap();
+
+        CreateMap<Reaction, ReactionDTO>().ReverseMap();
+        CreateMap<Reaction, CreateReactionDTO>().ReverseMap();
     }
 }

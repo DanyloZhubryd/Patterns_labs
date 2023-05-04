@@ -11,6 +11,7 @@ builder.Services.AddDbContext<InstagramContext>(options => options.UseNpgsql(con
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStoryService, StoryService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IReactionService, ReactionService>();
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 builder.Services.AddControllers();

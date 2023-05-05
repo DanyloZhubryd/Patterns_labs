@@ -3,21 +3,24 @@ using System;
 using Instagram.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace instagram_story.Infrastructure.Migrations
+namespace Instagram.Infrastructure.Migrations
 {
     [DbContext(typeof(InstagramContext))]
-    partial class StoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230505045507_InitialCreatePosgreSQl")]
+    partial class InitialCreatePosgreSQl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -130,8 +133,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.HasOne("Instagram.Models.User", "User")
                         .WithMany("CommentCollection")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Story");
 
@@ -148,8 +150,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.HasOne("Instagram.Models.User", "User")
                         .WithMany("ReactionCollection")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Story");
 

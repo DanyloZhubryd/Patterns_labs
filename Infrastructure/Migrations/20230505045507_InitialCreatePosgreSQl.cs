@@ -3,34 +3,21 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace instagram_story.Infrastructure.Migrations
+namespace Instagram.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreatePosgreSQl : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Media",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Media", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    Username = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,20 +30,14 @@ namespace instagram_story.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Caption = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    Caption = table.Column<string>(type: "text", nullable: true),
+                    MediaUrl = table.Column<string>(type: "text", nullable: false),
                     IsCloseFriendsOnly = table.Column<bool>(type: "boolean", nullable: false),
-                    MediaId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Story", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Story_Media_MediaId",
-                        column: x => x.MediaId,
-                        principalTable: "Media",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Story_User_UserId",
                         column: x => x.UserId,
@@ -71,7 +52,7 @@ namespace instagram_story.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Text = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: true),
                     StoryId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -88,8 +69,7 @@ namespace instagram_story.Infrastructure.Migrations
                         name: "FK_Comment_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -99,15 +79,15 @@ namespace instagram_story.Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Storyid = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: true)
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    StoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reaction", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reaction_Story_Storyid",
-                        column: x => x.Storyid,
+                        name: "FK_Reaction_Story_StoryId",
+                        column: x => x.StoryId,
                         principalTable: "Story",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -115,8 +95,7 @@ namespace instagram_story.Infrastructure.Migrations
                         name: "FK_Reaction_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -130,19 +109,14 @@ namespace instagram_story.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reaction_Storyid",
+                name: "IX_Reaction_StoryId",
                 table: "Reaction",
-                column: "Storyid");
+                column: "StoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reaction_UserId",
                 table: "Reaction",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Story_MediaId",
-                table: "Story",
-                column: "MediaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Story_UserId",
@@ -161,9 +135,6 @@ namespace instagram_story.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Story");
-
-            migrationBuilder.DropTable(
-                name: "Media");
 
             migrationBuilder.DropTable(
                 name: "User");

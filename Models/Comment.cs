@@ -10,9 +10,11 @@ public class Comment
     public int Id { get; set; }
     
     public string Text { get; set; }
-    
+
+    [ForeignKey("UserId")]
     public int? UserId { get; set; }
     public User? User { get; set; }
+    [ForeignKey("StoryId")]
     public int StoryId { get; set; }
     public Story Story { get; set; }
 

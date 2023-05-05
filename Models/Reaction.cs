@@ -11,8 +11,10 @@ public class Reaction
     [Column(TypeName = "int")]
     public ReactionType Type { get; set; }
     
+    [ForeignKey("UserId")]
     public int? UserId { get; set; }
     public User? User { get; set; }
+    [ForeignKey("StoryId")]
     public int StoryId { get; set; }
     public Story Story { get; set; }
 

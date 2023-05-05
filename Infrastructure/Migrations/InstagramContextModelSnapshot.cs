@@ -3,24 +3,21 @@ using System;
 using Instagram.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace instagram_story.Infrastructure.Migrations
+namespace Instagram.Infrastructure.Migrations
 {
     [DbContext(typeof(InstagramContext))]
-    [Migration("20230502172349_InitialCreate")]
-    partial class InitialCreate
+    partial class InstagramContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -38,8 +35,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("character varying(450)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
@@ -53,23 +49,6 @@ namespace instagram_story.Infrastructure.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("Instagram.Models.Media", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Media");
-                });
-
             modelBuilder.Entity("Instagram.Models.Reaction", b =>
                 {
                     b.Property<int>("Id")
@@ -78,7 +57,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Storyid")
+                    b.Property<int>("StoryId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Type")
@@ -89,7 +68,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Storyid");
+                    b.HasIndex("StoryId");
 
                     b.HasIndex("UserId");
 
@@ -105,21 +84,19 @@ namespace instagram_story.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Caption")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsCloseFriendsOnly")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("MediaId")
-                        .HasColumnType("integer");
+                    b.Property<string>("MediaUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MediaId");
 
                     b.HasIndex("UserId");
 
@@ -136,8 +113,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -154,8 +130,7 @@ namespace instagram_story.Infrastructure.Migrations
 
                     b.HasOne("Instagram.Models.User", "User")
                         .WithMany("CommentCollection")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Story");
 
@@ -166,14 +141,13 @@ namespace instagram_story.Infrastructure.Migrations
                 {
                     b.HasOne("Instagram.Models.Story", "Story")
                         .WithMany("ReactionCollection")
-                        .HasForeignKey("Storyid")
+                        .HasForeignKey("StoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Instagram.Models.User", "User")
                         .WithMany("ReactionCollection")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Story");
 
@@ -182,19 +156,11 @@ namespace instagram_story.Infrastructure.Migrations
 
             modelBuilder.Entity("Instagram.Models.Story", b =>
                 {
-                    b.HasOne("Instagram.Models.Media", "Media")
-                        .WithMany()
-                        .HasForeignKey("MediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Instagram.Models.User", "User")
                         .WithMany("StoryCollection")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Media");
 
                     b.Navigation("User");
                 });

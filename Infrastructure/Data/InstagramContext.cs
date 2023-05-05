@@ -17,11 +17,11 @@ public class InstagramContext : DbContext
         modelBuilder.Entity<User>()
             .HasMany(y => y.CommentCollection)
             .WithOne(x => x.User)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.ClientSetNull);
         modelBuilder.Entity<User>()
             .HasMany(y => y.ReactionCollection)
             .WithOne(x => x.User)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 
     public DbSet<User> UserCollection { get; set; }

@@ -1,0 +1,5 @@
+{
+  "strategy": "console",
+  "data_url": "https://www.dallasopendata.com/resource/7h2m-3um5.json",
+  "json_file_path": "data.json"
+}

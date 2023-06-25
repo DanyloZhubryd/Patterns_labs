@@ -36,8 +36,6 @@ public class PopulateDbService : IPopulateDbService
             Story story = new Story();
             story.Caption = storyDataTable.Rows[i]["Caption"].ToString();
             story.MediaUrl = storyDataTable.Rows[i]["MediaUrl"].ToString();
-            story.IsCloseFriendsOnly = Convert
-                .ToBoolean(storyDataTable.Rows[i]["IsCloseFriendsOnly"].ToString());
             story.UserId = Convert
                 .ToInt32(storyDataTable.Rows[i]["UserId"].ToString());
             storyList.Add(story);

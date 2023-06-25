@@ -86,9 +86,6 @@ namespace Instagram.Infrastructure.Migrations
                     b.Property<string>("Caption")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsCloseFriendsOnly")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("MediaUrl")
                         .IsRequired()
                         .HasColumnType("text");

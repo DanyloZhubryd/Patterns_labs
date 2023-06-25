@@ -10,7 +10,6 @@ public class Story
     public int Id { get; set; }
     public string? Caption { get; set; }
     public string MediaUrl { get; set; }
-    public bool IsCloseFriendsOnly { get; set; }
 
     [ForeignKey("UserId")]
     public int UserId { get; set; }

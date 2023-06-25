@@ -32,7 +32,6 @@ namespace Instagram.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Caption = table.Column<string>(type: "text", nullable: true),
                     MediaUrl = table.Column<string>(type: "text", nullable: false),
-                    IsCloseFriendsOnly = table.Column<bool>(type: "boolean", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Instagram.Infrastructure.Migrations
 {
     [DbContext(typeof(InstagramContext))]
-    [Migration("20230505045507_InitialCreatePosgreSQl")]
+    [Migration("20230524165115_InitialCreatePosgreSQl")]
     partial class InitialCreatePosgreSQl
     {
         /// <inheritdoc />
@@ -88,9 +88,6 @@ namespace Instagram.Infrastructure.Migrations
 
                     b.Property<string>("Caption")
                         .HasColumnType("text");
-
-                    b.Property<bool>("IsCloseFriendsOnly")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("MediaUrl")
                         .IsRequired()

@@ -6,6 +6,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("localhost");
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy => policy
+                                        .AllowAnyHeader()
+                                        .AllowAnyOrigin()
+                                        .AllowAnyMethod());
+});
+
 builder.Services.AddDbContext<InstagramContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -30,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

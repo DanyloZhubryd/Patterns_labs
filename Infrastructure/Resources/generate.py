@@ -31,13 +31,12 @@ def generate_story_csv():
         caption = fake.text(max_nb_chars=150)[:-1]
         media_url = random.choice(media_urls)
         user_id = random.randint(5, 1000)
-        is_close_friends_only = bool(random.getrandbits(1))
         story = {'Caption': caption, 'MediaUrl': media_url,
-                 'IsCloseFriendsOnly': is_close_friends_only, 'UserId': user_id}
+                 'UserId': user_id}
         stories.append(story)
 
     with open(path / 'story.csv', mode='w', newline='') as file:
-        fieldnames = ['Caption', 'MediaUrl', 'IsCloseFriendsOnly', 'UserId']
+        fieldnames = ['Caption', 'MediaUrl', 'UserId']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for story in stories:
